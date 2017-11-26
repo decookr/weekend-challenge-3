@@ -1,13 +1,12 @@
 
 
 table, th, td {
-    border: 1px solid rgb(6, 189, 189);
+    border: 1px solid rgb(150, 175, 175);
     font-size: 1.3em;
 }
 
 .done {
     background-color: rgba(235, 186, 112, 0.459);
-
     text-decoration: line-through;
 }
 
@@ -30,6 +29,7 @@ input[type=text] {
     border-radius: 4px;
     padding: 10px;
     font-size: 22px;
+    width: 42.5%;
 }
 
 input[type=text]:focus {
@@ -41,7 +41,7 @@ button {
     border-radius: 4px;
     padding: 10px;
     font-size: 22px;
-    background-color: rgb(6, 189, 189);
+    background-color: rgb(170, 184, 184);
 }
 
 button:hover {
