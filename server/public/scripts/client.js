@@ -79,15 +79,15 @@ function removeItem(){
 
 function markComplete(){
     console.log($(this).data()); // this should love {id:7} or whatever id is  
-    var shoeIdToSave = $(this).data().id;
-    var shoeNameToSave = $(this).parent().children(".newShoeName").val();
-    console.log('save shoe was clicked! The shoe id was ', shoeIdToSave);
+    var itemIdToMark = $(this).parent().data().id;
+    // var shoeNameToSave = $(this).parent().children(".newShoeName").val();
+    console.log('complete button was clicked! The item id was ', itemIdToMark);
 
     $.ajax({
         method: 'PUT',
-        url: '/shoes/' + shoeIdToSave,
+        url: '/todo/' + itemIdToMark,
         data: {
-            name: shoeNameToSave,
+            completed: 'Y'
         },
         success: function (response) {
             getItems();

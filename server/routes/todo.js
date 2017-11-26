@@ -86,8 +86,9 @@ router.delete('/:id', function (req,res){
 })
 
 router.put('/:id', function (req,res){
-    var shoeIdToSave = req.params.id;
-    var shoeNameToSave = req.body.name;
+    var itemIdToMark = req.params.id;
+    var markYes = req.body.completed;
+    // var shoeNameToSave = req.body.name;
     //Attempt to connect to database
     pool.connect(function(errorConnectingToDatabase, client, done){
         if(errorConnectingToDatabase){
@@ -98,7 +99,7 @@ router.put('/:id', function (req,res){
             // We connected to the database!
             //Now, we're going to GET things from the DB
             //use ES6 backtick ` to select multi lines below****
-            client.query(`UPDATE shoes SET "name" = $1 WHERE "id" = $2;`, [shoeNameToSave, shoeIdToSave], function(errorMakingQuery, result){
+            client.query(`UPDATE todo_list SET "completed" = $1 WHERE "id" = $2;`, [markYes, itemIdToMark], function(errorMakingQuery, result){
                 done();
                 if(errorMakingQuery){
                     //Query failed.  Did you test it in Postico?
