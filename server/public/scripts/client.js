@@ -3,6 +3,10 @@ console.log('JS loaded');
 $(document).ready(function(){
     console.log('JQ ready');
     getItems();
+    $('#listItemSubmit').on('click', addItem);
+    $('#todoList').on('click', '.deleteButton', removeItem);
+    $('#todoList').on('click', '.markCompletedButton', markComplete);
+
 //add event listeners here for submit, delete, mark completed***
 
 
@@ -19,15 +23,21 @@ function getItems(){
             $('#todoList').empty();
             for (let i = 0; i < response.length; i++) {
                 var todo = response[i];
-                var $newTodoItem = $('<li>' + todo.item + '</li>');
+                var $newTodoItem = $('<tr><td>' + todo.item + '</td><td>' + todo.completed + '</td></tr>');
                 
                 //create completed button for each item
+                var $completedButton = $('<td><button class="markCompletedButton">Completed</button></td>');
+                $completedButton.data('id', todo.id);
+                $newTodoItem.append($completedButton);                
 
                 //create delete button for each item
+                var $deleteButton = $('<td><button class="deleteButton">Delete</button></td>');
+                $deleteButton.data('id', todo.id);
+                $newTodoItem.append($deleteButton);
                 
                 //append todo items to DOM
-
-            }
+                $('#todoList').append($newTodoItem);
+            }//end for loop
             
         }
     })
@@ -54,12 +64,12 @@ function addItem(){
 
 function removeItem(){
     console.log($(this).data());
-    var shoeIdToRemove = $(this).data().id;
-    console.log('remove shoe was clicked! The shoe id was ', shoeIdToRemove);
+    var listItemToRemove = $(this).parent().data().id;
+    console.log('remove item was clicked! The item id was ', listItemToRemove);
 
     $.ajax ({
         method: 'DELETE',
-        url: '/shoes/' + shoeIdToRemove,
+        url: '/todo/' + listItemToRemove,
         success: function(response){
             getItems(); // call get function
         }
@@ -67,7 +77,7 @@ function removeItem(){
 }
 
 
-function editItem(){
+function markComplete(){
     console.log($(this).data()); // this should love {id:7} or whatever id is  
     var shoeIdToSave = $(this).data().id;
     var shoeNameToSave = $(this).parent().children(".newShoeName").val();

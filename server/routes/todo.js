@@ -59,7 +59,7 @@ router.post('/', function (req,res){
 })
 
 router.delete('/:id', function (req,res){
-    var shoeIdToRemove = req.params.id;
+    var listItemToRemove = req.params.id;
     //Attempt to connect to database
     pool.connect(function(errorConnectingToDatabase, client, done){
         if(errorConnectingToDatabase){
@@ -70,7 +70,7 @@ router.delete('/:id', function (req,res){
             // We connected to the database!
             //Now, we're going to GET things from the DB
             //use ES6 backtick ` to select multi lines below****
-            client.query(`DELETE FROM shoes WHERE id=$1;`, [shoeIdToRemove], function(errorMakingQuery, result){
+            client.query(`DELETE FROM todo_list WHERE id=$1;`, [listItemToRemove], function(errorMakingQuery, result){
                 done();
                 if(errorMakingQuery){
                     //Query failed.  Did you test it in Postico?
