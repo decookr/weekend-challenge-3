@@ -23,22 +23,35 @@ function getItems(){
             $('#todoList').empty();
             for (let i = 0; i < response.length; i++) {
                 var todo = response[i];
-                var $newTodoItem = $('<tr><td>' + todo.item + '</td><td>' + todo.completed + '</td></tr>');
-                
+
+                if (todo.completed == 'Y') {
+                var $newTodoItemY = $('<tr class="done"><td>' + todo.item + '</td><td>' + todo.completed + '</td></tr>');
                 //create completed button for each item
                 var $completedButton = $('<td><button class="markCompletedButton">Completed</button></td>');
                 $completedButton.data('id', todo.id);
-                $newTodoItem.append($completedButton);                
-
+                $newTodoItemY.append($completedButton);                
                 //create delete button for each item
                 var $deleteButton = $('<td><button class="deleteButton">Delete</button></td>');
                 $deleteButton.data('id', todo.id);
-                $newTodoItem.append($deleteButton);
+                $newTodoItemY.append($deleteButton);
+                $('#todoList').append($newTodoItemY);
                 
+                } else {
+                    var $newTodoItemN = $('<tr><td>' + todo.item + '</td><td>' + todo.completed + '</td></tr>');
+                    //create completed button for each item
+                    var $completedButton = $('<td><button class="markCompletedButton">Completed</button></td>');
+                    $completedButton.data('id', todo.id);
+                    $newTodoItemN.append($completedButton);                
+                    //create delete button for each item
+                    var $deleteButton = $('<td><button class="deleteButton">Delete</button></td>');
+                    $deleteButton.data('id', todo.id);
+                    $newTodoItemN.append($deleteButton);
+                    $('#todoList').append($newTodoItemN);
+
+                }
                 //append todo items to DOM
-                $('#todoList').append($newTodoItem);
+                $('input').val('');
             }//end for loop
-            
         }
     })
     
