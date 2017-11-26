@@ -6,12 +6,7 @@ $(document).ready(function(){
     $('#listItemSubmit').on('click', addItem);
     $('#todoList').on('click', '.deleteButton', removeItem);
     $('#todoList').on('click', '.markCompletedButton', markComplete);
-
-//add event listeners here for submit, delete, mark completed***
-
-
 })//end document ready
-
 
 function getItems(){
     console.log('in getItems');
@@ -47,19 +42,15 @@ function getItems(){
                     $deleteButton.data('id', todo.id);
                     $newTodoItemN.append($deleteButton);
                     $('#todoList').append($newTodoItemN);
-
                 }
-                //append todo items to DOM
                 $('input').val('');
             }//end for loop
         }
     })
-    
 }
 
-
 function addItem(){
-    $.ajax({  //including this in document ready is not a common practice, just for this demo
+    $.ajax({  
         method: 'POST',
         url: '/todo',
         data: {
@@ -72,8 +63,6 @@ function addItem(){
         }
     })
 }
-
-
 
 function removeItem(){
     console.log($(this).data());
@@ -89,11 +78,9 @@ function removeItem(){
     })
 }
 
-
 function markComplete(){
-    console.log($(this).data()); // this should love {id:7} or whatever id is  
+    console.log($(this).data()); 
     var itemIdToMark = $(this).parent().data().id;
-    // var shoeNameToSave = $(this).parent().children(".newShoeName").val();
     console.log('complete button was clicked! The item id was ', itemIdToMark);
 
     $.ajax({
